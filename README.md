@@ -1,10 +1,10 @@
 # airswap
-airswap technical assessment
+# airswap technical assessment
 
 03.07.2018
 
 This is the code for the Airswap technical, as quoted from Richard:
-'''
+```
 1. Takes an argument for a pair of crypto currencies like ETH/BTC (Ethereum and Bitcoin) 
 2. Connects to the Poloniex exchange (https://poloniex.com) 
 3. Calculates a 1-minute simple moving average of price for the provided token pair on an ongoing basis 
@@ -16,7 +16,8 @@ Stores state in a scalable manner
 Handles additional third party data streams, including errors and unavailable data streams
 Is coded entirely in a functional style where all variables are immutable
 Contains 90% or more test coverage, including edge case tests
-'''
+```
+
 Features:
 + moving average generator - configured for 60 second MA, but can be configured for any moving average
 + selectable polling/sampling rate
