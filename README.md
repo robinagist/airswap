@@ -1,0 +1,43 @@
+# airswap
+airswap technical assessment
+
+03.07.2018
+
+This is the code for the Airswap technical, as quoted from Richard:
+'''
+1. Takes an argument for a pair of crypto currencies like ETH/BTC (Ethereum and Bitcoin) 
+2. Connects to the Poloniex exchange (https://poloniex.com) 
+3. Calculates a 1-minute simple moving average of price for the provided token pair on an ongoing basis 
+4. Displays the value in the shell while the program is running
+
+We are interested in the completeness of the exercise and your coding style. Based on your particular skill set, consider adding any of the following features (or expand on the core requirements with your own flair):
+
+Stores state in a scalable manner
+Handles additional third party data streams, including errors and unavailable data streams
+Is coded entirely in a functional style where all variables are immutable
+Contains 90% or more test coverage, including edge case tests
+'''
+Features:
++ moving average generator - configured for 60 second MA, but can be configured for any moving average
++ selectable polling/sampling rate
++ easily add new exchanges by adding a custom handler and a config entry
++ persists moving average data to mongo collections for each exchange and currency combo
+
+# running it
+NOTE: I use python 3.6 and run inside of virtualenv
+
+0. REQUIRES: 
+    requests  (pip install requests)
+    mongo (local installation)
+1. pull it from github 
+2. go to the `airswap` directory
+3. change the mongodb URL to match your installation
+4. run with `python3 main.py BTC ETH'
+(takes one minute to load enough data, then scrolls average based on config.POLL_RATE)
+
+
+When using multiple data sources, it can error on one URL, and still keep functioning in other threads.
+
+# run the tests
+from `airswap' directory:
+    `python -m pytest tests/`
