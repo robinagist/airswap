@@ -32,7 +32,7 @@ NOTE: I use python 3.6 and run inside of virtualenv
     mongo (local installation)
 1. pull it from github 
 2. go to the `airswap` directory
-3. change the mongodb URL to match your installation
+3. in config.py, change the mongodb URL to match your installation
 4. run with `python3 main.py BTC ETH`
 (takes one minute to load enough data, then scrolls average based on config.POLL_RATE)
 5. to stop, just hit CTRL-C
