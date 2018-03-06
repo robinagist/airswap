@@ -40,5 +40,5 @@ NOTE: I use python 3.6 and run inside of virtualenv
 When using multiple data sources, it can error on one URL, and still keep functioning in other threads.
 
 # run the tests
-from `airswap' directory:
+from `airswap` directory:
     `python -m pytest tests/`
