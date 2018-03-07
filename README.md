@@ -1,5 +1,5 @@
-# airswap
-# airswap technical assessment
+# Airswap
+# Airswap technical assessment
 
 03.07.2018
 
@@ -23,7 +23,7 @@ Features:
 + configurable polling/sampling rate
 + works with both POLONIEX and GDAX  (though you might have trouble finding two currencies that match on both - try BTC ETH)
 + can be extended to other exchanges by simply adding a handler and a configuration entry
-+ persists moving average data to mongo collections for each exchange and currency combo
++ persists moving average data to Mongo collections for each exchange and currency combo
 
 # running it
 NOTE: I use python 3.6 and run inside of virtualenv
