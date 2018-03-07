@@ -61,7 +61,6 @@ if __name__ == '__main__':
         p = Thread(target=moving_average, args=(db, cur1, cur2, exname, url, exhandler))
         p.daemon = True
         jobs.append(p)
-        print("-")
         p.start()
 
     for proc in jobs:
