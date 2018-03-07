@@ -1,5 +1,5 @@
-# airswap
-# airswap technical assessment
+# Airswap
+# Airswap technical assessment
 
 03.07.2018
 
@@ -20,31 +20,31 @@ Contains 90% or more test coverage, including edge case tests
 
 Features:
 + moving average generator - configured for 60 second MA, but can be configured for any moving average
-+ selectable polling/sampling rate
++ configurable polling/sampling rate
 + works with both POLONIEX and GDAX  (though you might have trouble finding two currencies that match on both - try BTC ETH)
-+ persists moving average data to mongo collections for each exchange and currency combo
++ can be extended to other exchanges by simply adding a handler and a configuration entry
++ persists moving average data to Mongo collections for each exchange and currency combo
 
 # running it
 NOTE: I use python 3.6 and run inside of virtualenv
 ```
 0. REQUIRES: 
     requests  (pip install requests)
-    mongo (local installation) 
+    pymongo (pip install pymongo)
+    mongodb (local installation) 
     NOTE: to run without Mongo, set config.PERSIST to False
     
 1. pull it from github 
 2. go to the `airswap` directory
 3. in config.py, change the mongodb URL to match your installation
+(alternatively, set PERSIST to 'False' to not save the time series data)
 4. run with `python3 main.py BTC ETH`
 (takes one minute to load enough data, then scrolls average based on config.POLL_RATE)
 5. to stop, just hit CTRL-C
 
-NOTE:  to turn off polling data from an exchange, in config.py, set 'bypass' to 1
+NOTE:  to turn off polling data from an exchange, set 'bypass' to True in config.py
 ```
 When using multiple data sources, it can error on one URL, and still keep functioning in other threads.
 
-# run the tests
-from `airswap` directory:
-    `python -m pytest tests/`
     
 
