@@ -26,10 +26,12 @@ Features:
 
 # running it
 NOTE: I use python 3.6 and run inside of virtualenv
-
+```
 0. REQUIRES: 
     requests  (pip install requests)
-    mongo (local installation)
+    mongo (local installation) 
+    NOTE: to run without Mongo, set config.PERSIST to False
+    
 1. pull it from github 
 2. go to the `airswap` directory
 3. in config.py, change the mongodb URL to match your installation
@@ -38,7 +40,7 @@ NOTE: I use python 3.6 and run inside of virtualenv
 5. to stop, just hit CTRL-C
 
 NOTE:  to turn off polling data from an exchange, in config.py, set 'bypass' to 1
-
+```
 When using multiple data sources, it can error on one URL, and still keep functioning in other threads.
 
 # run the tests
