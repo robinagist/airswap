@@ -49,11 +49,7 @@ if __name__ == '__main__':
 
     # if config.PERSIST == True
     # create a connection to mongo to persist time series data
-    if config.PERSIST:
-        db = mongo_connect(config.MONGO_HOST)
-    else:
-        db = None
-
+    db = mongo_connect(config.MONGO_HOST) if config.PERSIST else None
     jobs = []
     # for each exchange, create
     for ex in config.exchanges:
@@ -64,7 +60,7 @@ if __name__ == '__main__':
             continue
         url = ex["url"]
 
-        p = Thread(target=moving_average, args=(db, cur1, cur2, exname, url, exhandler))
+        p = Process(target=moving_average, args=(db, cur1, cur2, exname, url, exhandler))
         p.daemon = True
         jobs.append(p)
         p.start()
