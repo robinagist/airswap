@@ -32,7 +32,8 @@ def moving_average(db, cur1, cur2, exch, url, handler_name):
         else:
             prip("need {} data samples to compute moving average".format(max_deque_size - sample_count))
 
-        persist(db, exch, pair, b_ma, a_ma)
+        if config.PERSIST:
+            persist(db, exch, pair, b_ma, a_ma)
         time.sleep(config.POLL_RATE)
 
 
@@ -46,8 +47,13 @@ if __name__ == '__main__':
     cur1 = sys.argv[1]
     cur2 = sys.argv[2]
 
+    # if config.PERSIST == True
     # create a connection to mongo to persist time series data
-    db = mongo_connect(config.MONGO_HOST)
+    if config.PERSIST:
+        db = mongo_connect(config.MONGO_HOST)
+    else:
+        db = None
+
     jobs = []
     # for each exchange, create
     for ex in config.exchanges:

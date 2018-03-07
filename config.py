@@ -17,5 +17,5 @@ exchanges = [
 
 MOVING_AVERAGE_SIZE = 60    # in seconds
 POLL_RATE = 1               # in seconds
-
+PERSIST = False
 MONGO_HOST = "mongodb://localhost:27017/"
