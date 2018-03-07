@@ -20,8 +20,9 @@ Contains 90% or more test coverage, including edge case tests
 
 Features:
 + moving average generator - configured for 60 second MA, but can be configured for any moving average
-+ selectable polling/sampling rate
++ configurable polling/sampling rate
 + works with both POLONIEX and GDAX  (though you might have trouble finding two currencies that match on both - try BTC ETH)
++ can be extended to other exchanges by simply adding a handler and a configuration entry
 + persists moving average data to mongo collections for each exchange and currency combo
 
 # running it
