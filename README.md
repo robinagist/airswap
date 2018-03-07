@@ -37,8 +37,12 @@ NOTE: I use python 3.6 and run inside of virtualenv
 (takes one minute to load enough data, then scrolls average based on config.POLL_RATE)
 5. to stop, just hit CTRL-C
 
+NOTE:  to turn off polling data from an exchange, in config.py, set 'bypass' to 1
+
 When using multiple data sources, it can error on one URL, and still keep functioning in other threads.
 
 # run the tests
 from `airswap` directory:
     `python -m pytest tests/`
+    
+
