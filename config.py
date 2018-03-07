@@ -3,9 +3,9 @@
 # exchanges
 exchanges = [
     {
-        "bypass": 1,
+        "bypass": 0,
         "name": "GDAX",
-        "url": "https://api.gdax.com/products/{}/book?level=2",
+        "url": "https://api.gdax.com/products/{}-{}/book?level=2",
         "handler": "gdax_handler"
      },
     {

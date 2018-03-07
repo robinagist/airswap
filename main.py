@@ -1,10 +1,10 @@
 from utils import mongo_connect, create_deques, add_new_ba_avg, get_moving_average, get_data, persist, prip
 from multiprocessing import Process
+from threading import Thread
 import config, time, handlers, sys
 
 
 def moving_average(db, cur1, cur2, exch, url, handler_name):
-
     max_deque_size = int(config.MOVING_AVERAGE_SIZE / config.POLL_RATE)
     bidq, askq = create_deques(max_deque_size)
     sample_count = 0
@@ -45,21 +45,23 @@ if __name__ == '__main__':
     # get the currency pair from the command line
     cur1 = sys.argv[1]
     cur2 = sys.argv[2]
-    cstr = "{}_{}".format(cur1, cur2)
-    jobs = []
 
     # create a connection to mongo to persist time series data
     db = mongo_connect(config.MONGO_HOST)
-
+    jobs = []
     # for each exchange, create
     for ex in config.exchanges:
+        exname = ex["name"]
+        exhandler = ex["handler"]
         # if bypass is set to 1 or true, bypass this exchange
         if ex["bypass"]:
             continue
         url = ex["url"]
 
-        p = Process(target=moving_average(db, cur1, cur2, ex["name"], url, ex["handler"]))
+        p = Thread(target=moving_average, args=(db, cur1, cur2, exname, url, exhandler))
+        p.daemon = True
         jobs.append(p)
+        print("-")
         p.start()
 
     for proc in jobs:
