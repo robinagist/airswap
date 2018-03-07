@@ -29,7 +29,9 @@ NOTE: I use python 3.6 and run inside of virtualenv
 
 0. REQUIRES: 
     requests  (pip install requests)
-    mongo (local installation)
+    mongo (local installation) 
+    NOTE: to run without Mongo, set config.PERSIST to False
+    
 1. pull it from github 
 2. go to the `airswap` directory
 3. in config.py, change the mongodb URL to match your installation
