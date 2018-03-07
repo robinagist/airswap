@@ -3,25 +3,21 @@ from multiprocessing import Process
 import config, time, handlers, sys
 
 
-def moving_average(db, pair, exch, url, handler_name):
+def moving_average(db, cur1, cur2, exch, url, handler_name):
 
     max_deque_size = int(config.MOVING_AVERAGE_SIZE / config.POLL_RATE)
     bidq, askq = create_deques(max_deque_size)
     sample_count = 0
 
     while(True):
-        data = get_data(url)
-
-        if not data:
-            return "invalid URL: {}".format(url)
-        if isinstance(data, int):
-            return "HTTP status returned: {}".format(data)
-        if "error" in data:
-            return "service error: {}".format(data["error"])
 
         handler = getattr(handlers, handler_name)
+        ask_avg, bid_avg = handler(url, cur1, cur2)
 
-        ask_avg, bid_avg = handler(data)
+        # look for an error (ask_avg == None, bid_avg has error message)
+        if not ask_avg:
+            print("error: ".format(bid_avg))
+            return
 
         bidq = add_new_ba_avg(bidq, bid_avg)
         askq = add_new_ba_avg(askq, ask_avg)
@@ -30,6 +26,7 @@ def moving_average(db, pair, exch, url, handler_name):
         a_ma = get_moving_average(askq)
 
         sample_count += 1
+        pair = "{}_{}".format(cur1, cur2)
         if sample_count >= max_deque_size:
             print("pair: {} exch: {} bid_avg: {} ask_avg: {}".format(pair, exch, b_ma, a_ma ))
         else:
@@ -41,7 +38,7 @@ def moving_average(db, pair, exch, url, handler_name):
 
 if __name__ == '__main__':
 
-    if not sys.argv[2]:
+    if not len(sys.argv) > 2:
         print("enter a pair of cryptocurrencies separated by a space, e.g. 'BTC ETH'")
         exit(1)
 
@@ -59,9 +56,9 @@ if __name__ == '__main__':
         # if bypass is set to 1 or true, bypass this exchange
         if ex["bypass"]:
             continue
-        url = ex["url"] + cstr
+        url = ex["url"]
 
-        p = Process(target=moving_average(db, cstr, ex["name"], url, ex["handler"]))
+        p = Process(target=moving_average(db, cur1, cur2, ex["name"], url, ex["handler"]))
         jobs.append(p)
         p.start()
 

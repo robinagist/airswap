@@ -3,13 +3,13 @@
 # exchanges
 exchanges = [
     {
-        "bypass":1,
+        "bypass": 1,
         "name": "GDAX",
-        "url": "https://",
+        "url": "https://api.gdax.com/products/{}/book?level=2",
         "handler": "gdax_handler"
      },
     {
-        "bypass":0,
+        "bypass": 0,
         "name": "POLX",
         "url": "https://poloniex.com/public?command=returnOrderBook&currencyPair=",
         "handler": "polx_handler"
